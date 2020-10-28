@@ -1,0 +1,327 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    text-decoration: none;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+.container-fluid{
+
+   min-height: calc(100vh- 100px - 300px);
+   
+}
+
+
+/* HEADER */
+.logo {
+    width: 90px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+header nav ul li {
+    margin: 0px 10px;
+}
+
+.inicio-sesion {
+    margin: 10px 0px 10px 10px;
+}
+
+/* CARRUCEL */
+#carrucel {
+    margin-bottom: 50px;
+}
+
+/* CATALOGO DE ARTICULOS */
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+
+#catalogo .item-imagen {
+    height: 330px;
+}
+
+#catalogo .item-imagen-red {
+    height: 335px;
+}
+
+/* FORMULARIO REGISTRO */
+#contenedorFormularioRegistro {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#contenedorFormularioRegistro h2 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+#contenedorFormularioRegistro label {
+    font-weight: bold;
+    font-size: 17px;
+    margin-left: 10px;
+}
+
+#contenedorFormularioRegistro form div.input-group-text {
+    border-radius: 0;
+}
+
+#contenedorFormularioRegistro input {
+    border-radius: 0;
+    height: 50px;
+    background-color: #fffafa;
+}
+
+#contenedorFormularioRegistro fieldset {
+    border: 1px solid #cacaca;
+    background-color: #f8f5f5;
+    margin-bottom: 10px;
+}
+
+#contenedorFormularioRegistro fieldset legend {
+    border: 1px solid #cacaca;
+    font-size: 17px;
+    font-weight: bold;
+    width: auto;
+    margin-left: 10px;
+}
+
+#contenedorFormularioRegistro fieldset div {
+    margin-left: 5px;
+}
+
+#contenedorFormularioRegistro .terminos {
+    margin-bottom: 10px;
+}
+
+#contenedorFormularioRegistro button {
+    border-radius: 0;
+    height: 50px;
+}
+
+#contenedorFormularioRegistro button.registroSubmit {
+    background-color: #12448f;
+    border: #12448f;
+}
+
+#contenedorFormularioRegistro button.registroSubmit:hover {
+    background-color: #226bda;
+    border: #226bda;
+}
+
+#contenedorFormularioRegistro button.registroReset {
+    background-color: #850505;
+    border: #850505;
+}
+
+#contenedorFormularioRegistro button.registroReset:hover {
+    background-color: #da1e1e;
+    border: #da1e1e;
+}
+
+@media (max-width: 500px) {
+    #contenedorFormularioRegistro input {
+        height: 30px;
+    }
+
+    #contenedorFormularioRegistro fieldset {
+        height: 60px;
+    }
+
+    #contenedorFormularioRegistro fieldset div {
+        margin-left: 0px;
+        padding-top: 3px;
+    }
+}
+
+/* Acerca */
+#acerca {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#acerca h2 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+#acerca p {
+    text-align: justify;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* GALERIA DE IMAGENES */
+#galeriaFotos h2 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.carrito-imagen {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+
+
+
+/* FOOTER */
+footer {
+    color: #ffffff;
+    margin-top: 10px;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 80%;
+    
+}
+
+footer a {
+    margin-right: 10px;
+}
+
+footer hr {
+    background-color: #474747;
+    border: solid 1px;
+}
+
+.alerta-carrito {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: red;
+    position: relative;
+    top: -23px;
+    left: 45px;
+}
+.boleta{
+  border-radius: 15px;
+  background: #e2e2e2;
+  padding: 20px;
+  width: 626px;
+  height: 542px;
+  margin-top: 16px;
+  margin-left: 286px;
+
+}
+#comprobante{
+
+    position: relative;
+    width: 600px;
+    height: 453px;
+    margin: 0px 0px 0px 0px;
+    padding-bottom: 2rem;
+    
+        
+
+
+}
+
+
+#listaComprobante{
+
+    width: 550px;
+    right: 117rem;
+    height: 52px;
+    margin-left: 44px;
+   
+    
+    
+}
+
+#ptotal{
+
+    width: 364px;
+    right: 117rem;
+    height: -1px;
+    margin-left: 202px;
+    margin-top: -128px;
+    z-index: -1;
+}
+
+#toli{
+
+    width: 550px;
+    right: 117rem;
+    height: 2000px;
+    margin-left: 1px;
+    background-color: cyan;
+}
+#botonvolver{
+    width: 122px;
+    right: 117rem;
+    height: 40px;
+    margin-left: 21px;
+    margin-top: 467px;
+    z-index: 1;
+
+
+}
+#botonvolver a{
+    color: lightgoldenrodyellow;
+    
+
+}
+
+
+
+#tcomprobante  {
+
+    margin-left: 175px;
+    font-style: italic;
+    color: cadetblue;
+    
+
+}
+#Lnombre{
+       
+        color: olivedrab;
+        margin-right: 10px;
+        font-variant-caps: small-caps;
+        font-family: fantasy;
+        font-size: 32px 6px 0px 0px;
+        font-size: 24px;
+       
+
+}
+#textnombre{
+    font-size: 24px;
+
+
+}
+#Nprecio{
+    font-size: 20px;
+    margin: 3px;
+
+
+}
+#textcantidad{
+    font-size: 19px;
+    margin-left: 14px;
+    height: 56px;
+    line-height: 46px;
+
+}
+mark {
+    outline-style: double;
+}
+
+
+
+
+
+
+
+@media (max-width: 990px) {
+    .alerta-carrito {
+        left: 68px;
+    }
+}
