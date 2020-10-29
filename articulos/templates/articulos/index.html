@@ -47,17 +47,21 @@
 
 <!-- CATALOGO DE ARTICULOS -->
 <h2>Catalogo de Juegos</h2>
+{% if listaArticulos %}
 <section id="catalogo" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+    {% for articulo in listaArticulos %}
     <div class="col mb-4">
         <div class="card item">
-            <img src="{% static 'img/articulos/ghost_of_tsushima.jpg' %}" class="card-img-top item-imagen" alt="..." />
+            <img src="{{articulo.img}}" class="card-img-top item-imagen" alt="..." />
             <div class="card-body">
-                <h5 class="card-title item-nombre" value="Ghost of Tsushima">Ghost of Tsushima</h5>
-                <p class="card-text item-precio" value="20000">$20.000</p>
+                <h5 class="card-title item-nombre" value="{{articulo.nombre}}">{{articulo.nombre}}</h5>
+                <p class="card-text item-precio" value="{{articulo.precio}}">${{articulo.precio}}</p>
                 <button id="1" class="btn btn-primary btn-block btn-articulo"><i class="fas fa-shopping-cart"></i>Agregar al Carro</button>
             </div>
         </div>
     </div>
+    {% endfor %}
 </section>
-
-{% endblock %}
+{% else %}
+<p>No existen articulos</p>
+{% endif %} {% endblock %}

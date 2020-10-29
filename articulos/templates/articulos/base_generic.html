@@ -31,16 +31,16 @@
                     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                             <li class="nav-item active">
-                                <a class="nav-link" href="index.html"><i class="fas fa-home d-lg-none"></i> Inicio <span class="sr-only">(current)</span></a></span>
+                                <a class="nav-link" href="{% url 'index' %}"><i class="fas fa-home d-lg-none"></i> Inicio <span class="sr-only">(current)</span></a></span>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="about.html"><i class="fas fa-users d-lg-none"></i> Quienes Somos <span class="sr-only">(current)</span></a></span>
+                                <a class="nav-link" href="{% url 'about' %}"><i class="fas fa-users d-lg-none"></i> Quienes Somos <span class="sr-only">(current)</span></a></span>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="register.html"><i class="fas fa-user-plus d-lg-none"></i> Registrate <span class="sr-only">(current)</span></a></span>
+                                <a class="nav-link" href="{% url 'register' %}"><i class="fas fa-user-plus d-lg-none"></i> Registrate <span class="sr-only">(current)</span></a></span>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="carrito.html">
+                                <a class="nav-link active" href="{% url 'carrito' %}">
                                     <i class="fas fa-shopping-cart d-lg-none"></i>
                                     Carrito 
                                     <span id="alerta-carrito">

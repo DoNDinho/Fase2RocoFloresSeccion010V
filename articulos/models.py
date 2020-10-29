@@ -16,7 +16,7 @@ class Articulo(models.Model):
     tipoArticulo = models.ForeignKey(Tipo_Articulo, on_delete=models.CASCADE) 
     nombre = models.CharField(max_length=100)
     precio = models.IntegerField()
-    img = models.ImageField(upload_to='img/', null=True, blank=True)
+    img = models.ImageField(upload_to='static/articulos/img/articulos', null=True, blank=True)
     stock = models.IntegerField()
 
     class Meta:
