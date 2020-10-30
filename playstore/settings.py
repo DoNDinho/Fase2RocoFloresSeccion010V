@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'articulos.apps.ArticulosConfig',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/articulos/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'articulos')
+
+
+# Template boostrap 4
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

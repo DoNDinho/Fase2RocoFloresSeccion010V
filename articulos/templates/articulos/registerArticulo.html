@@ -1,0 +1,18 @@
+{% extends "articulos/base_generic.html" %} {% load static %} {% block title %}<title>Registro Articulos</title>{% endblock %} {% block content %}
+
+<!-- FORMULARIO REGISTRO -->
+<!--Posiciona el contenido al centro-->
+<div id="contenedorFormularioRegistro" class="row justify-content-center">
+    <h2 class="col-12">Registro Articulo</h2>
+
+    <form id="formularioRegistroArticulo" action="" method="POST" class="col-xl-5 col-md-7 col-xs-12">
+        {{% crsf_token %}} {{ form.as_table}}
+
+        <div class="row justify-content-between">
+            <button class="btn btn-primary col-12 col-md-5 registroSubmit" type="submit">Guardar</button>
+            <button class="btn btn-danger col-12 col-md-5 registroReset" type="reset">Limpiar</button>
+        </div>
+    </form>
+    {{ mensaje}}
+</div>
+{% endblock %}
