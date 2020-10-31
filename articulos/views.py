@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.http import  HttpResponseRedirect
+from django.shortcuts import render, redirect
 from django.views import generic
+from django.urls import reverse
 
 from .models import Articulo
 from .forms import ArticuloForm
@@ -26,16 +28,32 @@ def nuevoArticulo(request):
     }
 
     if request.method =='POST':
-        formulario= ArticuloForm(request.POST)
-    if formulario.is_valid():
-        formulario.save()
-        data['mensaje'] = "guardado correctamente"
-         
-    return render(request, 'articulos/registerArticulo.html',data)
+        formulario= ArticuloForm(request.POST, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje'] = "guardado correctamente"
+            # Metodo para evitar el reenvio del formulario
+            return HttpResponseRedirect(reverse('articulo-register'))
+    else:
+        return render(request, 'articulos/registerArticulo.html',data)
+
+
+class ListarArticulosView(generic.ListView):
+    template_name = 'articulos/listarArticulos.html'
+    context_object_name = 'listaArticulos'
+
+    def get_queryset(self):
+        return Articulo.objects.all()
 
 def modificarArticulo(request):
     data ={
         'form':ArticuloForm()  
     }
 
-    return render(request, 'articulos/modificarArticulo.html',data)
+    return render(request, 'articulos/modificarArticulo.html', data)
+
+def eliminarArticulo(request, id):
+    articulo = Articulo.objects.get(id=id)
+    articulo.delete()
+
+    return redirect(to="articulo-listar")

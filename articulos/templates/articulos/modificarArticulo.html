@@ -6,12 +6,14 @@
     <h2 class="col-12">Registro Articulo</h2>
 
     <form id="formularioRegistroArticulo" action="" method="POST" class="col-xl-5 col-md-7 col-xs-12">
-        {{% crsf_token %}} {{ form.as_table}}
-
-        <div class="row justify-content-between">
-            <button class="btn btn-primary col-12 col-md-5 registroSubmit" type="submit">Modificar</button>
-            <button class="btn btn-danger col-12 col-md-5 registroReset" type="reset">Limpiar</button>
-        </div>
+        {% csrf_token %}
+        <table>
+            {{ form.as_table}}
+            <div class="row justify-content-between">
+                <button class="btn btn-primary col-12 col-md-5 registroSubmit" type="submit">Modificar</button>
+                <button class="btn btn-danger col-12 col-md-5 registroReset" type="reset">Limpiar</button>
+            </div>
+        </table>
     </form>
     {{ mensaje}}
 </div>

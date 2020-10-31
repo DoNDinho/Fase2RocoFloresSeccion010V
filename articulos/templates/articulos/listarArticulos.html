@@ -1,0 +1,40 @@
+{% extends "articulos/base_generic.html" %} {% load static %} {% block title %}<title>Listar</title>{% endblock %} {% block content %}
+<div id="pagar">
+    {% if listaArticulos %}
+    <div class="table-responsive-lg">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for articulo in listaArticulos %}
+                <tr>
+                    <td scope="row"><img class="carrito-imagen carrito-nombre" src="{{articulo.img.url}}" value="" alt="" />{{articulo.nombre}}</td>
+                    <td class="carrito-precio"><b>$ {{articulo.precio}}</b></td>
+                    <td>{{articulo.stock}}</td>
+                    <td>
+                        <!-- BOTON MODIFICAR -->
+                        <button class="btn btn-primary"><a href="{% url 'articulo-modificar' %}"></a><i class="fas fa-edit"></i></button>
+                    </td>
+                    <td>
+                        <!-- BOTON ELIMINAR -->
+                        <a href="{% url 'articulo-aliminar' articulo.id %}">
+                            <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No existen artículos</p>
+    {% endif %}
+</div>
+{% endblock %}

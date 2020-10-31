@@ -52,7 +52,7 @@
     {% for articulo in listaArticulos %}
     <div class="col mb-4">
         <div class="card item">
-            <img src="{{articulo.img}}" class="card-img-top item-imagen" alt="Imagen {{articulo.nombre}}" />
+            <img src="{{articulo.img.url}}" class="card-img-top item-imagen" alt="Imagen {{articulo.nombre}}" />
             <div class="card-body">
                 <h5 class="card-title item-nombre" value="{{articulo.nombre}}">{{articulo.nombre}}</h5>
                 <p class="card-text item-precio" value="{{articulo.precio}}">${{articulo.precio}}</p>
