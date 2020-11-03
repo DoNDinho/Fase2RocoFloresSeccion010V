@@ -45,12 +45,14 @@ class ListarArticulosView(generic.ListView):
     def get_queryset(self):
         return Articulo.objects.all()
 
-def modificarArticulo(request):
+def modificarArticulo(request, id):
+    articulo = Articulo.objects.get(id=id)
     data ={
-        'form':ArticuloForm()  
+        'form':ArticuloForm(instance=articulo)  
     }
-
+ 
     return render(request, 'articulos/modificarArticulo.html', data)
+
 
 def eliminarArticulo(request, id):
     articulo = Articulo.objects.get(id=id)
