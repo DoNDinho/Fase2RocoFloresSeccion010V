@@ -10,11 +10,11 @@ $(document).ready(function () {
     $('.carrito-eliminar').on('click', eliminarArticulo);
     $('.botonPagar').click(pagar);
 
-
     // Funcion para guardar datos en localStorage
     function guardarLocalStorage(evt) {
         // Selecciona el div que contiene la clase .item
         let item = evt.target.closest('.item');
+        let id = item.querySelector('.item-id').getAttribute('value');
         let nombre = item.querySelector('.item-nombre').getAttribute('value');
         let precio = item.querySelector('.item-precio').getAttribute('value');
         let imagen = item.querySelector('.item-imagen').src;
@@ -22,6 +22,7 @@ $(document).ready(function () {
 
         // Crea objeto con articulos
         let articulo = {
+            id,
             nombre,
             precio,
             imagen,
@@ -64,31 +65,36 @@ $(document).ready(function () {
         } else {
             let articulos = JSON.parse(localStorage.getItem('articulos'));
 
-            let columnas = '';
-
-            articulos.forEach((i) => {
-                let nombre = i.nombre;
-                let precio = i.precio;
-                let imagen = i.imagen;
-                let cantidad = i.cantidad;
-
-                let articulos = `<tr class="carrito-columna">
-                    <td scope="row"> <img class="carrito-imagen carrito-nombre" src="${imagen}" value="${nombre}" alt="">  ${nombre}</td>
-                    <td class="carrito-precio" value="${precio}">$${precio}</td>
-                    <td> <input class="carrito-cantidad" type="number"  min="1" value="${cantidad}"></td>
-                    <td><button class="btn btn-danger carrito-eliminar"><i class="fas fa-trash-alt"></i></button> </td>
-                </tr>`;
-
-                columnas += articulos;
-            });
-            columnas+= `
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><button class="btn btn-primary botonPagar"><i class="fas fa-dollar-sign"></i>Pagar</button></td> `
-
-            $('#tablaCarrito').html(columnas);
             if (articulos.length != 0) {
+                let columnas = '';
+
+                articulos.forEach((i) => {
+                    let nombre = i.nombre;
+                    let precio = i.precio;
+                    let imagen = i.imagen;
+                    let cantidad = i.cantidad;
+
+                    let articulos = `<tr class="carrito-columna">
+                        <td scope="row"> 
+                            <img class="carrito-imagen carrito-nombre" src="${imagen}" value="${nombre}" alt="">${nombre}
+                        </td>
+                        <td class="carrito-precio" value="${precio}">$${precio}</td>
+                        <td> <input class="carrito-cantidad" type="number"  min="1" value="${cantidad}"></td>
+                        <td><button class="btn btn-danger carrito-eliminar"><i class="fas fa-trash-alt"></i></button> </td>
+                    </tr>`;
+
+                    columnas += articulos;
+                });
+
+                columnas += `
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <button class="btn btn-primary botonPagar"><i class="fas fa-dollar-sign"></i>Pagar</button>
+                </td> `;
+
+                $('#tablaCarrito').html(columnas);
                 $('#alerta-carrito').html('<div class="alerta-carrito"></div>');
             }
         }
@@ -134,74 +140,65 @@ $(document).ready(function () {
         cargarCarrito();
         location.reload();
     }
-     function pagar(evt){
+    function pagar(evt) {
         if (localStorage.getItem('articulos') === null) {
             $('.alerta-carrito').remove();
         } else {
             let articulos = JSON.parse(localStorage.getItem('articulos'));
             $('#pagar').html('');
-            
 
-            let total=0;
-            let listaComprobante='';
-            let listaconcar="";
-
-            articulos.forEach((i) => {
-                let nombre = i.nombre;
-                let precio = i.precio;
-                let cantidad = i.cantidad;
-
-                
-
-                listaComprobante+= `<li id="listaComprobante" style="display:inline-block"> <span id ="textnombre"><B>Nombre:</B></span> <span id="Lnombre" >${nombre}</span> <span id="Nprecio">Precio$</span> <mark>${precio}</mark> <span id="textcantidad">Cantidad:</span>${cantidad}</li>`
-                listaconcar = listaconcar.concat(articulos.nombre +articulos.precio+articulos.cantidad);
-                
-
-
-                total+=  precio * cantidad;
-                 
+            $.ajax({
+                url: '/register/',
+                type: 'POST',
+                data: {
+                    articulos: JSON.stringify(articulos)
+                },
+                processData: false,
+                contentType: false,
+                success: (response) => {
+                    console.log('Respuesta');
+                    console.log(response);
+                }
             });
 
-            let comprobante =
-            `<div class="panel panel-default">
-                <div class="row boleta >
-                    <main class="col-sm-8 row " ></main>
-                    <div  class= "col-sm-4" >
-                        <h2 id=tcomprobante >Comprobante</h2>
-                        
-                        <ul id="comprobante" class="list-group ">
-                        
-                        
-                        
-                        
-                        </ul>
-                      
-                        <hr>
-                        <p id="ptotal" class="text-left">Total: $ <span id="toli" >${total} </span></p>
-                        
-                        
-                    </div>
-                    
-                    <button id="botonvolver" class="btn btn-primary"><a id="refvoler" href="index.html">Volver</a></button>
-                    
-                    
-                </div>
-            </div>
-            `;
-            
+            /////////////////////////////////////////////////////////////////
 
-            $('refvolver').click(localStorage.clear());
+            // let total = 0;
+            // let listaComprobante = '';
+            // let listaconcar = '';
 
-            $('#pagar').html(comprobante);
+            // articulos.forEach((i) => {
+            //     let nombre = i.nombre;
+            //     let precio = i.precio;
+            //     let cantidad = i.cantidad;
 
-            $('#comprobante').html(listaComprobante);
-            
+            //     listaComprobante += `<li id="listaComprobante" style="display:inline-block"> <span id ="textnombre"><B>Nombre:</B></span> <span id="Lnombre" >${nombre}</span> <span id="Nprecio">Precio$</span> <mark>${precio}</mark> <span id="textcantidad">Cantidad:</span>${cantidad}</li>`;
+            //     listaconcar = listaconcar.concat(articulos.nombre + articulos.precio + articulos.cantidad);
 
+            //     total += precio * cantidad;
+            // });
+
+            // let comprobante = `<div class="panel panel-default">
+            //     <div class="row boleta >
+            //         <main class="col-sm-8 row " ></main>
+            //         <div  class= "col-sm-4" >
+            //             <h2 id=tcomprobante >Comprobante</h2>
+            //             <ul id="comprobante" class="list-group ">
+            //             </ul>
+            //             <hr>
+            //             <p id="ptotal" class="text-left">Total: $ <span id="toli" >${total} </span></p>
+            //         </div>
+            //         <button id="botonvolver" class="btn btn-primary"><a id="refvoler" href="index.html">Volver</a></button>
+            //     </div>
+            // </div>
+            // `;
+
+            // $('refvolver').click(localStorage.clear());
+            // $('#pagar').html(comprobante);
+            // $('#comprobante').html(listaComprobante);
         }
+    }
 
-        //  //
-
-     }
     /*=============================================
     VALIDACION FORMULARIO
     =============================================*/
@@ -235,8 +232,6 @@ $(document).ready(function () {
                 return false;
             }
         }
-
-        
 
         // Password debe tener entre 8 y 10 caracteres, por lo menos un digito y un alfanumérico, y no puede contener caracteres espaciales
         if (password != '') {

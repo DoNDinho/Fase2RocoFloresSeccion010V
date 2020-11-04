@@ -1,18 +1,67 @@
 {% extends "articulos/base_generic.html" %} {% load static %} {% block title %}<title>Registro Articulos</title>{% endblock %} {% block content %}
 
 <!-- FORMULARIO REGISTRO -->
-<!--Posiciona el contenido al centro-->
-<div id="contenedorFormularioRegistro" class="row justify-content-center">
+{% load crispy_forms_tags %}
+<div id="contenedorFormularioArticulos" class="row justify-content-center">
     <h2 class="col-12">Registro Articulo</h2>
 
-    <form id="formularioRegistroArticulo" action="" method="POST" class="col-xl-5 col-md-7 col-xs-12" enctype="multipart/form-data">
+    <form id="formularioArticulos" action="" method="POST" class="col-xl-5 col-md-7 col-xs-12" enctype="multipart/form-data">
         {% csrf_token %}
-        <table>
-            {{ form.as_table}}
-        </table>
+        <!--INPUT TIPO ARTICULO -->
+        <div class="form-group">
+            <label for="tipoArticulo" class="d-none d-sm-block">Tipo</label>
+            <div class="input-group tipoArticulo">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-user"></i></div>
+                </div>
+                {{form.tipoArticulo}}
+            </div>
+        </div>
+
+        <!--INPUT NOMBRE ARTICULO -->
+        <div class="form-group">
+            <label for="nombreArticulo" class="d-none d-sm-block">Nombre</label>
+            <div class="input-group nombreArticulo">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-gamepad"></i></div>
+                </div>
+                {{form.nombre}}
+            </div>
+        </div>
+
+        <!--INPUT PRECIO ARTICULO -->
+        <div class="form-group">
+            <label for="precioArticulo" class="d-none d-sm-block">Precio</label>
+            <div class="input-group precioArticulo">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-dollar-sign"></i></i></div>
+                </div>
+                {{form.precio}}
+            </div>
+        </div>
+
+        <!--INPUT IMAGEN ARTICULO -->
+        <div class="form-group">
+            <label for="imagenArticulo" class="d-none d-sm-block">Imagen</label>
+            <div class="input-group imagenArticulo">
+                {{form.img}}
+            </div>
+        </div>
+
+        <!--INPUT STOCK ARTICULO -->
+        <div class="form-group">
+            <label for="stockArticulo" class="d-none d-sm-block">Stock</label>
+            <div class="input-group stockArticulo">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-plus"></i></i></div>
+                </div>
+                {{form.stock}}
+            </div>
+        </div>
+
         <div class="row justify-content-between">
-            <button class="btn btn-primary col-12 col-md-5 registroSubmit" type="submit">Guardar</button>
-            <button class="btn btn-danger col-12 col-md-5 registroReset" type="reset">Limpiar</button>
+            <button class="btn btn-primary col-12 col-md-5 articulosSubmit" type="submit">Guardar</button>
+            <button class="btn btn-danger col-12 col-md-5 articulosReset" type="reset">Limpiar</button>
         </div>
     </form>
     {{mensaje}}

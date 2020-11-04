@@ -1,0 +1,65 @@
+/* ARTICULOS LISTAR*/
+.articulos-listar-imagen {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+
+/* FORMULARIO REGISTRAR ARTICULO */
+#contenedorFormularioArticulos {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#contenedorFormularioArticulos h2 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+#contenedorFormularioArticulos label {
+    font-weight: bold;
+    font-size: 17px;
+    margin-left: 10px;
+}
+
+#contenedorFormularioArticulos form div.input-group-text {
+    border-radius: 0;
+}
+
+#contenedorFormularioArticulos input {
+    border-radius: 0;
+    height: 50px;
+    background-color: #fffafa;
+}
+
+#contenedorFormularioArticulos button {
+    border-radius: 0;
+    height: 50px;
+}
+
+#contenedorFormularioArticulos button.articulosSubmit {
+    background-color: #12448f;
+    border: #12448f;
+}
+
+#contenedorFormularioArticulos button.articulosSubmit:hover {
+    background-color: #226bda;
+    border: #226bda;
+}
+
+#contenedorFormularioArticulos button.articulosReset {
+    background-color: #850505;
+    border: #850505;
+}
+
+#contenedorFormularioArticulos button.articulosReset:hover {
+    background-color: #da1e1e;
+    border: #da1e1e;
+}
+
+@media (max-width: 500px) {
+    #contenedorFormularioArticulos input {
+        height: 30px;
+    }
+}

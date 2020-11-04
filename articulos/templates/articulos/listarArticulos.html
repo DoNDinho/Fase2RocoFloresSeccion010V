@@ -1,8 +1,23 @@
-{% extends "articulos/base_generic.html" %} {% load static %} {% block title %}<title>Listar</title>{% endblock %} {% block content %}
-<div id="pagar">
+{% extends "articulos/base_generic.html" %} 
+{% load static %}
+
+<!-- MODIFICANDO TITULO DE LA PAGINA -->
+{% block title %}<title>Listar</title>{% endblock %} 
+
+<!-- CONTENIFO HTML -->
+{% block content %}
+
+<!--CARGANDO JAVASCRIPT CON CODIGO PATA CONFIRMAR ELIMINACION DE ARTICULO-->
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{% static 'articulos/js/articulo_eliminar.js' %}"></script>
+{% endblock %}
+
+<div>
+    <h2 class="col-12">Lista Articulos</h2>
     {% if listaArticulos %}
     <div class="table-responsive-lg">
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Producto</th>
@@ -15,8 +30,15 @@
             <tbody>
                 {% for articulo in listaArticulos %}
                 <tr>
-                    <td scope="row"><img class="carrito-imagen carrito-nombre" src="{{articulo.img.url}}" value="" alt="" />{{articulo.nombre}}</td>
-                    <td class="carrito-precio"><b>$ {{articulo.precio}}</b></td>
+                    <td scope="row">
+                        {% if articulo.img %}
+                        <img class="articulos-listar-imagen" src="{{articulo.img.url}}" alt="" />
+                        {% else %}
+                        <img src="{% static 'articulos/img/articulos/imagen_no_disponible.png' %}" class="articulos-listar-imagen" alt="Imagen no disponible" />
+                        {% endif %}
+                        {{articulo.nombre}}
+                    </td>
+                    <td><b>$ {{articulo.precio}}</b></td>
                     <td>{{articulo.stock}}</td>
                     <td>
                         <!-- BOTON MODIFICAR -->
@@ -24,7 +46,7 @@
                     </td>
                     <td>
                         <!-- BOTON ELIMINAR -->
-                        <a href="{% url 'articulo-aliminar' articulo.id %}">
+                        <a href="#" onclick="confirmarEliminacion( {{articulo.id}} )">
                             <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                         </a>
                     </td>

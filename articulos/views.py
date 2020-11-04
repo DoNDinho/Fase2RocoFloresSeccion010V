@@ -2,6 +2,9 @@ from django.http import  HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse
+# DESPUES ELIMINAR ESTO
+from django.conf import settings
+import os
 
 from .models import Articulo
 from .forms import ArticuloForm
@@ -17,7 +20,10 @@ def about(request):
     return render(request, 'articulos/about.html')
 
 def register(request):
-    return render(request, 'articulos/register.html')
+    if request.method == 'POST':
+        return HttpResponseRedirect(reverse('index'))
+    else:
+        return render(request, 'articulos/register.html')
 
 def carrito(request):
     return render(request, 'articulos/carrito.html')
@@ -56,6 +62,11 @@ def modificarArticulo(request, id):
 
 def eliminarArticulo(request, id):
     articulo = Articulo.objects.get(id=id)
+    
+    # Valida si articulo posee imagen
+    if articulo.img:
+        # Eliminar imagen del directorio
+        os.remove(str(settings.BASE_DIR) + articulo.img.url)
+    
     articulo.delete()
-
     return redirect(to="articulo-listar")
