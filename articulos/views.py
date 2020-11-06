@@ -56,8 +56,16 @@ def modificarArticulo(request, id):
     data ={
         'form':ArticuloForm(instance=articulo)  
     }
- 
-    return render(request, 'articulos/modificarArticulo.html', data)
+
+    if request.method =='POST':
+        formulario= ArticuloForm(data=request.POST, instance=articulo, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje'] = "guardado correctamente"
+            data['form'] = formulario
+        data['form'] = ArticuloForm(instance=Articulo.objects.get(id=id))
+        
+    return render(request, 'articulos/registerArticulo.html', data)
 
 
 def eliminarArticulo(request, id):

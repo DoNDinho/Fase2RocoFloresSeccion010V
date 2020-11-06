@@ -8,13 +8,22 @@
     <form id="formularioArticulos" action="" method="POST" class="col-xl-5 col-md-7 col-xs-12" enctype="multipart/form-data">
         {% csrf_token %}
         <!--INPUT TIPO ARTICULO -->
+        
         <div class="form-group">
             <label for="tipoArticulo" class="d-none d-sm-block">Tipo</label>
             <div class="input-group tipoArticulo">
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fas fa-user"></i></div>
                 </div>
-                {{form.tipoArticulo}}
+                
+                
+                
+                 {{form.tipoArticulo}}
+                
+               
+            
+
+                
             </div>
         </div>
 

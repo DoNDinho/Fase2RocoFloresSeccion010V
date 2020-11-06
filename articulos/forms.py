@@ -7,6 +7,27 @@ class ArticuloForm(ModelForm):
         model= Articulo
         fields = ['tipoArticulo','nombre','precio','img','stock']
         
-
-
+        widgets= {
+            'tipoArticulo': forms.Select(
+                attrs={
+                    'class':'form-control'
+                }
+            ),
+            'nombre': forms.TextInput(
+                attrs={
+                    'class':'form-control'
+                }
+            ),
+            'precio': forms.NumberInput(
+                attrs={
+                    'class':'form-control'
+                }
+            ),
+            'stock': forms.NumberInput(
+                attrs={
+                    'class':'form-control'
+                }
+            )
+        } 
+       
  
