@@ -14,7 +14,6 @@ class PersonArticulo(admin.ModelAdmin):
     )
 
     def foto(self, obj):
-        #print(obj.img.url)
         return format_html("<img src={} />", obj.img.url )
     
 admin.site.register(Tipo_Articulo)

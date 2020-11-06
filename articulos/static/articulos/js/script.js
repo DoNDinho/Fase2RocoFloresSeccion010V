@@ -16,7 +16,8 @@ $(document).ready(function () {
         let item = evt.target.closest('.item');
         let id = item.querySelector('.item-id').getAttribute('value');
         let nombre = item.querySelector('.item-nombre').getAttribute('value');
-        let precio = item.querySelector('.item-precio').getAttribute('value');
+        // Precio se parsea a entero
+        let precio = parseInt(item.querySelector('.item-precio').getAttribute('value'));
         let imagen = item.querySelector('.item-imagen').src;
         let cantidad = 1;
 
@@ -69,6 +70,7 @@ $(document).ready(function () {
                 let columnas = '';
 
                 articulos.forEach((i) => {
+                    let id = i.id;
                     let nombre = i.nombre;
                     let precio = i.precio;
                     let imagen = i.imagen;
@@ -76,7 +78,8 @@ $(document).ready(function () {
 
                     let articulos = `<tr class="carrito-columna">
                         <td scope="row"> 
-                            <img class="carrito-imagen carrito-nombre" src="${imagen}" value="${nombre}" alt="">${nombre}
+                            <img class="carrito-imagen carrito-nombre" src="${imagen}" value="${nombre}" alt="">
+                            <span value"${id}"></span> ${nombre}
                         </td>
                         <td class="carrito-precio" value="${precio}">$${precio}</td>
                         <td> <input class="carrito-cantidad" type="number"  min="1" value="${cantidad}"></td>
@@ -148,16 +151,18 @@ $(document).ready(function () {
             $('#pagar').html('');
 
             $.ajax({
-                url: '/register/',
+                url: '/articulos/carrito/',
                 type: 'POST',
-                data: {
-                    articulos: JSON.stringify(articulos)
-                },
+                data: JSON.stringify(articulos),
                 processData: false,
                 contentType: false,
                 success: (response) => {
                     console.log('Respuesta');
                     console.log(response);
+                },
+                error: (error) => {
+                    console.log('Error');
+                    console.log(error);
                 }
             });
 

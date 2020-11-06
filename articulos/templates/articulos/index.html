@@ -61,7 +61,11 @@
                 <span class="item-id" value="{{articulo.id}}"></span>
                 <h5 class="card-title item-nombre" value="{{articulo.nombre}}">{{articulo.nombre}}</h5>
                 <p class="card-text item-precio" value="{{articulo.precio}}">${{articulo.precio}}</p>
-                <button id="1" class="btn btn-primary btn-block btn-articulo"><i class="fas fa-shopping-cart"></i>Agregar al Carro</button>
+                {% if articulo.stock == 0 %}
+                <button id="1" class="btn btn-primary btn-block disabled"><i class="fas fa-shopping-cart"></i>Agotado</button>
+                {% else %}
+                <button id="1" class="btn btn-primary btn-block btn-articulo disable"><i class="fas fa-shopping-cart"></i>Agregar al Carro</button>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -1,10 +1,12 @@
-from django.http import  HttpResponseRedirect
+from django.http import  HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse
-# DESPUES ELIMINAR ESTO
+from django.views.decorators.csrf import csrf_exempt
+
 from django.conf import settings
 import os
+import json
 
 from .models import Articulo
 from .forms import ArticuloForm
@@ -19,14 +21,87 @@ class IndexView(generic.ListView):
 def about(request):
     return render(request, 'articulos/about.html')
 
-def register(request):
-    if request.method == 'POST':
-        return HttpResponseRedirect(reverse('index'))
-    else:
-        return render(request, 'articulos/register.html')
 
+def register(request):
+    return render(request, 'articulos/register.html')
+
+
+@csrf_exempt
 def carrito(request):
-    return render(request, 'articulos/carrito.html')
+    if request.method == 'POST':
+        # Lista que obtendra objeto con articulos modificados
+        listaNuevoStock = []
+
+        # El JSON serializado se convierte a formato JSON (Dict object)
+        body = json.loads(request.body)
+
+        # Recorremos el arreglo con articulos
+        for articulos in body:
+            id = articulos['id']
+            cantidad = int(articulos['cantidad'])
+
+            # Valida si existe objeto seleccionado
+            try:
+                articulo = Articulo.objects.get(id=id)
+            except Articulo.DoesNotExist:
+                print('Articulo no existe')
+
+                return JsonResponse({
+                    'code': '001',
+                    'message': 'Articulo no existe',
+                    'id': id
+                })
+
+            else:
+                print('Articulo existe')
+                stock = articulo.stock
+
+                # Valida si existe stock
+                if stock == 0:
+                    print('El producto no contiene stock')
+
+                    return JsonResponse({
+                        'code': '002',
+                        'message': 'Articulo sin stock',
+                        'id': id
+                    })
+
+                # Valida si la cantidad es mayor al stocl
+                if cantidad > stock:
+                    print('Stock insuficiente')
+
+                    return JsonResponse({
+                        'code': '003',
+                        'message': 'Stock insuficiente',
+                        'id': id
+                    })
+                else:
+                    print('Stock suficiente')
+                    nuevoStock = stock - cantidad
+                    
+                    articuloModificado = {
+                        'id': id,
+                        'stock': nuevoStock
+                    }
+
+                    listaNuevoStock.append(articuloModificado)
+
+        # Recorre arreglo para modificar stock de articulos
+        for articuloModificado in listaNuevoStock:
+            id = articuloModificado['id']
+            stock = articuloModificado['stock']
+
+            articulo = Articulo.objects.get(id=id)
+            articulo.stock = stock
+            articulo.save()
+
+        return JsonResponse({
+
+        })
+   
+    else:
+        return render(request, 'articulos/carrito.html')
+
 
 def nuevoArticulo(request):
     data ={
