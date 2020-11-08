@@ -31,6 +31,7 @@ def carrito(request):
     if request.method == 'POST':
         # Lista que obtendra objeto con articulos modificados
         listaNuevoStock = []
+        listaErrores =[]
 
         # El JSON serializado se convierte a formato JSON (Dict object)
         body = json.loads(request.body)
@@ -46,11 +47,13 @@ def carrito(request):
             except Articulo.DoesNotExist:
                 print('Articulo no existe')
 
-                return JsonResponse({
+                error = {
                     'code': '001',
                     'message': 'Articulo no existe',
                     'id': id
-                })
+                }
+
+                listaErrores.append(error)
 
             else:
                 print('Articulo existe')
@@ -60,44 +63,46 @@ def carrito(request):
                 if stock == 0:
                     print('El producto no contiene stock')
 
-                    return JsonResponse({
+                    error = {
                         'code': '002',
                         'message': 'Articulo sin stock',
                         'id': id
-                    })
-
-                # Valida si la cantidad es mayor al stocl
-                if cantidad > stock:
-                    print('Stock insuficiente')
-
-                    return JsonResponse({
-                        'code': '003',
-                        'message': 'Stock insuficiente',
-                        'id': id
-                    })
-                else:
-                    print('Stock suficiente')
-                    nuevoStock = stock - cantidad
-                    
-                    articuloModificado = {
-                        'id': id,
-                        'stock': nuevoStock
                     }
 
-                    listaNuevoStock.append(articuloModificado)
+                    listaErrores.append(error)
 
-        # Recorre arreglo para modificar stock de articulos
-        for articuloModificado in listaNuevoStock:
-            id = articuloModificado['id']
-            stock = articuloModificado['stock']
+                # Valida si la cantidad es mayor al stock
+                elif cantidad > stock:
+                    print('Stock insuficiente')
 
-            articulo = Articulo.objects.get(id=id)
-            articulo.stock = stock
-            articulo.save()
+                    error = {
+                        'code': '002',
+                        'message': 'Stock insuficiente: ' + str(stock),
+                        'id': id
+                    }
 
-        return JsonResponse({
+                    listaErrores.append(error)
+                else:
+                    print('Stock suficiente')
 
-        })
+        # Valida si la lista de errores contiene items
+        if(len(listaErrores) > 0):
+            
+            # Responde la peticion con la lista de errores
+            return JsonResponse({
+                'errors': listaErrores
+            })
+        else:
+            # Recorre lista con articulos para modificar stock
+            for articulos in body:
+                id = articulos['id']
+                cantidad = int(articulos['cantidad'])
+
+                articulo = Articulo.objects.get(id=id)
+                articulo.stock = articulo.stock - cantidad
+                articulo.save()
+
+            return JsonResponse({})
    
     else:
         return render(request, 'articulos/carrito.html')

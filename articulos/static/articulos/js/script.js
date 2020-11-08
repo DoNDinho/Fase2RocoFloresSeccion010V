@@ -76,13 +76,15 @@ $(document).ready(function () {
                     let imagen = i.imagen;
                     let cantidad = i.cantidad;
 
-                    let articulos = `<tr class="carrito-columna">
+                    let articulos = `<tr class="carrito-columna" id="carrito-${id}">
                         <td scope="row"> 
-                            <img class="carrito-imagen carrito-nombre" src="${imagen}" value="${nombre}" alt="">
-                            <span value"${id}"></span> ${nombre}
+                            <img class="carrito-imagen" src="${imagen}" alt="">
+                            <span class="carrito-nombre" value="${nombre}">${nombre}</span>
                         </td>
                         <td class="carrito-precio" value="${precio}">$${precio}</td>
-                        <td> <input class="carrito-cantidad" type="number"  min="1" value="${cantidad}"></td>
+                        <td> 
+                            <input class="carrito-cantidad" type="number"  min="1" value="${cantidad}">
+                        </td>
                         <td><button class="btn btn-danger carrito-eliminar"><i class="fas fa-trash-alt"></i></button> </td>
                     </tr>`;
 
@@ -90,12 +92,14 @@ $(document).ready(function () {
                 });
 
                 columnas += `
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button class="btn btn-primary botonPagar"><i class="fas fa-dollar-sign"></i>Pagar</button>
-                </td> `;
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-primary botonPagar"><i class="fas fa-dollar-sign"></i>Pagar</button>
+                    </td>
+                </tr>`;
 
                 $('#tablaCarrito').html(columnas);
                 $('#alerta-carrito').html('<div class="alerta-carrito"></div>');
@@ -148,7 +152,7 @@ $(document).ready(function () {
             $('.alerta-carrito').remove();
         } else {
             let articulos = JSON.parse(localStorage.getItem('articulos'));
-            $('#pagar').html('');
+            // $('#pagar').html('');
 
             $.ajax({
                 url: '/articulos/carrito/',
@@ -157,8 +161,68 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 success: (response) => {
-                    console.log('Respuesta');
-                    console.log(response);
+                    $('.carrito-validacion').remove();
+                    $('carrito-cantidad').css('border-color', 'black');
+
+                    if (response.hasOwnProperty('errors')) {
+                        let errores = response.errors;
+
+                        errores.forEach((i) => {
+                            let code = i.code;
+                            let id = i.id;
+                            let message = i.message;
+
+                            // Valida codigo de error
+                            switch (code) {
+                                // Codigo 001: articulo no existe
+                                case '001':
+                                    var itemArticulo = $(`#carrito-${id}`).find('.carrito-nombre');
+                                    itemArticulo.css('border-color', 'red');
+                                    itemArticulo.after(`<span class="carrito-validacion">${message}</span>`);
+                                    break;
+                                // Codigo 002: articulo sin stock, stock insuficiente
+                                case '002':
+                                    var itemArticulo = $(`#carrito-${id}`).find('.carrito-cantidad');
+                                    itemArticulo.css('border-color', 'red');
+                                    itemArticulo.after(`<span class="carrito-validacion">${message}</span>`);
+                                    break;
+                            }
+                        });
+                    } else {
+                        let total = 0;
+                        let listaComprobante = '';
+                        let listaconcar = '';
+
+                        articulos.forEach((i) => {
+                            let nombre = i.nombre;
+                            let precio = i.precio;
+                            let cantidad = i.cantidad;
+
+                            listaComprobante += `<li id="listaComprobante" style="display:inline-block"> <span id ="textnombre"><B>Nombre:</B></span> <span id="Lnombre" >${nombre}</span> <span id="Nprecio">Precio$</span> <mark>${precio}</mark> <span id="textcantidad">Cantidad:</span>${cantidad}</li>`;
+                            listaconcar = listaconcar.concat(articulos.nombre + articulos.precio + articulos.cantidad);
+
+                            total += precio * cantidad;
+                        });
+
+                        let comprobante = `<div class="panel panel-default">
+                            <div class="row boleta >
+                                <main class="col-sm-8 row " ></main>
+                                <div  class= "col-sm-4" >
+                                    <h2 id=tcomprobante >Comprobante</h2>
+                                    <ul id="comprobante" class="list-group ">
+                                    </ul>
+                                    <hr>
+                                    <p id="ptotal" class="text-left">Total: $ <span id="toli" >${total} </span></p>
+                                </div>
+                                <button id="botonvolver" class="btn btn-primary"><a id="refvoler" href="/articulos/">Volver</a></button>
+                            </div>
+                        </div>
+                        `;
+
+                        $('refvolver').click(localStorage.clear());
+                        $('#pagar').html(comprobante);
+                        $('#comprobante').html(listaComprobante);
+                    }
                 },
                 error: (error) => {
                     console.log('Error');

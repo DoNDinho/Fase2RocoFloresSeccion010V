@@ -7,12 +7,9 @@
     box-sizing: border-box;
 }
 
-.container-fluid{
-
-   min-height: calc(100vh- 100px - 300px);
-   
+.container-fluid {
+    min-height: calc(100vh- 100px - 300px);
 }
-
 
 /* HEADER */
 .logo {
@@ -39,8 +36,6 @@ h2 {
     text-align: center;
     margin-bottom: 30px;
 }
-
-
 
 #catalogo .item-imagen {
     height: 330px;
@@ -171,8 +166,6 @@ h2 {
     border-radius: 100%;
 }
 
-
-
 /* FOOTER */
 footer {
     color: #ffffff;
@@ -181,7 +174,6 @@ footer {
     padding-top: 15px;
     padding-bottom: 15px;
     font-size: 80%;
-    
 }
 
 footer a {
@@ -202,43 +194,31 @@ footer hr {
     top: -23px;
     left: 45px;
 }
-.boleta{
-  border-radius: 15px;
-  background: #e2e2e2;
-  padding: 20px;
-  width: 626px;
-  height: 542px;
-  margin-top: 16px;
-  margin-left: 286px;
-
+.boleta {
+    border-radius: 15px;
+    background: #e2e2e2;
+    padding: 20px;
+    width: 626px;
+    height: 542px;
+    margin-top: 16px;
+    margin-left: 286px;
 }
-#comprobante{
-
+#comprobante {
     position: relative;
     width: 600px;
     height: 453px;
     margin: 0px 0px 0px 0px;
     padding-bottom: 2rem;
-    
-        
-
-
 }
 
-
-#listaComprobante{
-
+#listaComprobante {
     width: 550px;
     right: 117rem;
     height: 52px;
     margin-left: 44px;
-   
-    
-    
 }
 
-#ptotal{
-
+#ptotal {
     width: 364px;
     right: 117rem;
     height: -1px;
@@ -247,81 +227,107 @@ footer hr {
     z-index: -1;
 }
 
-#toli{
-
+#toli {
     width: 550px;
     right: 117rem;
     height: 2000px;
     margin-left: 1px;
     background-color: cyan;
 }
-#botonvolver{
+#botonvolver {
     width: 122px;
     right: 117rem;
     height: 40px;
     margin-left: 21px;
     margin-top: 467px;
     z-index: 1;
-
-
 }
-#botonvolver a{
+#botonvolver a {
     color: lightgoldenrodyellow;
-    
-
 }
 
-
-
-#tcomprobante  {
-
+#tcomprobante {
     margin-left: 175px;
     font-style: italic;
     color: cadetblue;
-    
-
 }
-#Lnombre{
-       
-        color: olivedrab;
-        margin-right: 10px;
-        font-variant-caps: small-caps;
-        font-family: fantasy;
-        font-size: 32px 6px 0px 0px;
-        font-size: 24px;
-       
-
-}
-#textnombre{
+#Lnombre {
+    color: olivedrab;
+    margin-right: 10px;
+    font-variant-caps: small-caps;
+    font-family: fantasy;
+    font-size: 32px 6px 0px 0px;
     font-size: 24px;
-
-
 }
-#Nprecio{
+#textnombre {
+    font-size: 24px;
+}
+#Nprecio {
     font-size: 20px;
     margin: 3px;
-
-
 }
-#textcantidad{
+#textcantidad {
     font-size: 19px;
     margin-left: 14px;
     height: 56px;
     line-height: 46px;
-
 }
 mark {
     outline-style: double;
 }
 
-
-
-
-
-
-
 @media (max-width: 990px) {
     .alerta-carrito {
         left: 68px;
+    }
+}
+
+.carrito-validacion {
+    color: red;
+    font-size: 14px;
+    font-family: helvetica;
+    font-weight: bold;
+    text-decoration: underline;
+    display: block;
+
+    animation-name: parpadeo;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: 2;
+}
+
+@-moz-keyframes parpadeo {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes parpadeo {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes parpadeo {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
