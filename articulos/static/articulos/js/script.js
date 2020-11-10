@@ -229,42 +229,6 @@ $(document).ready(function () {
                     console.log(error);
                 }
             });
-
-            /////////////////////////////////////////////////////////////////
-
-            // let total = 0;
-            // let listaComprobante = '';
-            // let listaconcar = '';
-
-            // articulos.forEach((i) => {
-            //     let nombre = i.nombre;
-            //     let precio = i.precio;
-            //     let cantidad = i.cantidad;
-
-            //     listaComprobante += `<li id="listaComprobante" style="display:inline-block"> <span id ="textnombre"><B>Nombre:</B></span> <span id="Lnombre" >${nombre}</span> <span id="Nprecio">Precio$</span> <mark>${precio}</mark> <span id="textcantidad">Cantidad:</span>${cantidad}</li>`;
-            //     listaconcar = listaconcar.concat(articulos.nombre + articulos.precio + articulos.cantidad);
-
-            //     total += precio * cantidad;
-            // });
-
-            // let comprobante = `<div class="panel panel-default">
-            //     <div class="row boleta >
-            //         <main class="col-sm-8 row " ></main>
-            //         <div  class= "col-sm-4" >
-            //             <h2 id=tcomprobante >Comprobante</h2>
-            //             <ul id="comprobante" class="list-group ">
-            //             </ul>
-            //             <hr>
-            //             <p id="ptotal" class="text-left">Total: $ <span id="toli" >${total} </span></p>
-            //         </div>
-            //         <button id="botonvolver" class="btn btn-primary"><a id="refvoler" href="index.html">Volver</a></button>
-            //     </div>
-            // </div>
-            // `;
-
-            // $('refvolver').click(localStorage.clear());
-            // $('#pagar').html(comprobante);
-            // $('#comprobante').html(listaComprobante);
         }
     }
 
