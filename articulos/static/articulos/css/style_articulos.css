@@ -1,3 +1,13 @@
+/* BARRA NAVEGACION ARTICULOS */
+.menu-desplegable button {
+    border: 0;
+    border-radius: 0%;
+}
+
+.menu-desplegable div a {
+    font-size: 14px;
+}
+
 /* ARTICULOS LISTAR*/
 .articulos-listar-imagen {
     width: 100px;

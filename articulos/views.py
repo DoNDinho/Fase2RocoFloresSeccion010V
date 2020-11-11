@@ -9,7 +9,7 @@ import os
 import json
 
 from .models import Articulo
-from .forms import ArticuloForm
+from .forms import ArticuloForm, UsuarioForm
 
 class IndexView(generic.ListView):
     template_name = 'articulos/index.html'
@@ -23,9 +23,21 @@ def about(request):
 
 
 def register(request):
-    return render(request, 'articulos/register.html')
+    data = {
+        'form': UsuarioForm()  
+    }
 
-
+    if request.method =='POST':
+        formulario= UsuarioForm(request.POST, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje'] = "guardado correctamente"
+            # Metodo para evitar el reenvio del formulario
+            return HttpResponseRedirect(reverse('register'))
+    else:
+        return render(request, 'articulos/register.html', data)
+ 
+        
 @csrf_exempt
 def carrito(request):
     if request.method == 'POST':

@@ -1,95 +1,93 @@
 {% extends "articulos/base_generic.html" %} {% load static %} {% block title %}<title>Registro</title>{% endblock %} {% block content %}
 
 <!-- FORMULARIO REGISTRO -->
+{% load crispy_forms_tags %}
+
 <!--Posiciona el contenido al centro-->
-            <div id="contenedorFormularioRegistro" class="row justify-content-center">
-                <h2 class="col-12">Formulario Registro</h2>
-                <form id="formularioRegistro" action="" method="" class="col-xl-5 col-md-7 col-xs-12">
-                    <!--INPUT NOMBRE -->
-                    <div class="form-group">
-                        <label for="registroNombre" class="d-none d-sm-block">Nombre</label>
-                        <div class="input-group registroNombre">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-user"></i></div>
-                            </div>
-                            <input type="text" class="form-control" id="registroNombre" placeholder="Ingrese su nombre" required/>
-                        </div>
-                    </div>
-||
-                    <!--INPUT EMAIL -->
-                    <div class="form-group">
-                        <label for="registroEmail" class="d-none d-sm-block">Email</label>
-                        <div class="input-group registroEmail">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-envelope"></i></div>
-                            </div>
-                            <input type="email" class="form-control" id="registroEmail" placeholder="Ingrese su email" required/>
-                        </div>
-                    </div>
-                    <!--INPUT PASSWORD -->
-                    <div class="form-group">
-                        <label for="registroPassword" class="d-none d-sm-block">Contraseña</label>
-                        <div class="input-group registroPassword">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-key"></i></i></div>
-                            </div>
-                            <input type="password" class="form-control" id="registroPassword" placeholder="Ingrese una contraseña" required/>
-                        </div>
-                    </div>
-                    <!--INPUT PASSWORD VERIFICACION -->
-                    <div class="form-group">
-                        <label for="registroPasswordValidar" class="d-none d-sm-block">Valide Contraseña</label>
-                        <div class="input-group registroPasswordValidar">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-key"></i></i></div>
-                            </div>
-                            <input type="password" class="form-control" id="registroPasswordValidar" placeholder="Ingrese nuevamente su contraseña" required/>
-                        </div>
-                    </div>
-                    <!--INPUT TELEFONO -->
-                    <div class="form-group">
-                        <label for="registroTelefono" class="d-none d-sm-block">Telefono</label>
-                        <div class="input-group registroTelefono">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-phone"></i></i></div>
-                            </div>
-                            <input type="tel" class="form-control" id="registroTelefono" placeholder="Ingrese número de telefono" required/>
-                        </div>
-                    </div>
-                    <!--INPUT EDAD -->
-                    <div class="form-group">
-                        <label for="registroEdad" class="d-none d-sm-block">Edad</label>
-                        <div class="input-group registroEdad">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
-                            </div>
-                            <input type="number" class="form-control" id="registroEdad" placeholder="Ingrese su edad" min="14" required/>
-                        </div>
-                    </div>
-                    <!--INPUT SEXO -->
-                    <fieldset>
-                        <legend class="d-none d-sm-block">Sexo</legend>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="registroHombre" name="registroSexo" class="custom-control-input" required/>
-                            <label class="custom-control-label" for="registroHombre">Hombre</label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" id="registroMujer" name="registroSexo" class="custom-control-input" required/>
-                            <label class="custom-control-label" for="registroMujer">Mujer</label>
-                        </div>
-                    </fieldset>
-                    <!--INPUT TERMINOS Y CONDICIONES -->
-                    <div class="custom-control custom-checkbox terminos">
-                        <input type="checkbox" class="custom-control-input" id="registroTerminos" required/>
-                        <label class="custom-control-label" for="registroTerminos">Acepto términos y condiciones</label>
-                    </div>
-                    <div class="row justify-content-between">
-                        <button class="btn btn-primary col-12 col-md-5 registroSubmit" type="submit">Registrarme</button>
-                        <button class="btn btn-danger col-12 col-md-5 registroReset" type="reset">Limpiar</button>
-                    </div>
-                </form>
+<div id="contenedorFormularioRegistro" class="row justify-content-center">
+    <h2 class="col-12">Formulario Registro</h2>
+    {% csrf_token %}
+    <form id="formularioRegistro" action="" method="" class="col-xl-5 col-md-7 col-xs-12">
+        <!--INPUT NOMBRE -->
+        <div class="form-group">
+            <label for="registroNombre" class="d-none d-sm-block">Nombre</label>
+            <div class="input-group registroNombre">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-user"></i></div>
+                </div>
+                {{form.nombreUsuario}}
             </div>
-
-
+        </div>
+        <!--INPUT EMAIL -->
+        <div class="form-group">
+            <label for="registroEmail" class="d-none d-sm-block">Email</label>
+            <div class="input-group registroEmail">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+                </div>
+                {{form.email}}
+            </div>
+        </div>
+        <!--INPUT PASSWORD -->
+        <div class="form-group">
+            <label for="registroPassword" class="d-none d-sm-block">Contraseña</label>
+            <div class="input-group registroPassword">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-key"></i></i></div>
+                </div>
+                {{form.contraseña}}
+            </div>
+        </div>
+        <!--INPUT PASSWORD VERIFICACION -->
+        <div class="form-group">
+            <label for="registroPasswordValidar" class="d-none d-sm-block">Valide Contraseña</label>
+            <div class="input-group registroPasswordValidar">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-key"></i></i></div>
+                </div>
+                <input type="password" class="form-control" id="registroPasswordValidar" placeholder="Ingrese nuevamente su contraseña" required/>
+            </div>
+        </div>
+        <!--INPUT TELEFONO -->
+        <div class="form-group">
+            <label for="registroTelefono" class="d-none d-sm-block">Telefono</label>
+            <div class="input-group registroTelefono">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-phone"></i></i></div>
+                </div>
+                {{form.telefono}}
+            </div>
+        </div>
+        <!--INPUT EDAD -->
+        <div class="form-group">
+            <label for="registroEdad" class="d-none d-sm-block">Edad</label>
+            <div class="input-group registroEdad">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                </div>
+                {{form.edad}}
+            </div>
+        </div>
+        <!--INPUT SEXO -->
+        <div class="form-group">
+            <label for="registroTelefono" class="d-none d-sm-block">Sexo</label>
+            <div class="input-group registroTelefono">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-genderless"></i></i></div>
+                </div>
+                {{form.sexo}}
+            </div>
+        </div>
+        <!--INPUT TERMINOS Y CONDICIONES -->
+        <div class="custom-control custom-checkbox terminos">
+            <input type="checkbox" class="custom-control-input" id="registroTerminos" required/>
+            <label class="custom-control-label" for="registroTerminos">Acepto términos y condiciones</label>
+        </div>
+        <div class="row justify-content-between">
+            <button class="btn btn-primary col-12 col-md-5 registroSubmit" type="submit">Registrarme</button>
+            <button class="btn btn-danger col-12 col-md-5 registroReset" type="reset">Limpiar</button>
+        </div>
+    </form>
+</div>
 
 {% endblock %}
