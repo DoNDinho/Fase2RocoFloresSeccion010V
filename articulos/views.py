@@ -22,6 +22,7 @@ def about(request):
     return render(request, 'articulos/about.html')
 
 
+@csrf_exempt
 def register(request):
     data = {
         'form': UsuarioForm()  

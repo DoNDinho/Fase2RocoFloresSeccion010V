@@ -33,7 +33,7 @@ class ArticuloForm(ModelForm):
 class UsuarioForm(ModelForm):
     class Meta:
         model= Usuario
-        fields = ['nombreUsuario','telefono','email','sexo','contraseña','edad']
+        fields = ['nombreUsuario','telefono','email','sexo','contraseña','edad', 'img']
 
         widgets= {
             'nombreUsuario': forms.TextInput(
@@ -75,6 +75,13 @@ class UsuarioForm(ModelForm):
                     'class':'form-control',
                     'placeholder': 'Ingrese su edad',
                     'min': '24'
+                }
+            ),
+            'img': forms.FileInput(
+                attrs={
+                    'class': 'custom-file-input',
+                    'id': 'inputGroupFile01',
+                    'aria-describedby': 'inputGroupFileAddon01'
                 }
             )
         }

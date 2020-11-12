@@ -31,17 +31,17 @@
 
                     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                            <li class="nav-item active">
+                            <li class="nav-item {% if request.path == '/articulos/' %} active {% endif %}">
                                 <a class="nav-link" href="{% url 'index' %}"><i class="fas fa-home d-lg-none"></i> Inicio <span class="sr-only">(current)</span></a></span>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {% if request.path == '/articulos/about/' %} active {% endif %}">
                                 <a class="nav-link" href="{% url 'about' %}"><i class="fas fa-users d-lg-none"></i> Quienes Somos <span class="sr-only">(current)</span></a></span>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item {% if request.path == '/articulos/register/' %} active {% endif %}">
                                 <a class="nav-link" href="{% url 'register' %}"><i class="fas fa-user-plus d-lg-none"></i> Registrate <span class="sr-only">(current)</span></a></span>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="{% url 'carrito' %}">
+                            <li class="nav-item {% if request.path == '/articulos/carrito/' %} active {% endif %}">
+                                <a class="nav-link" href="{% url 'carrito' %}">
                                     <i class="fas fa-shopping-cart d-lg-none"></i>
                                     Carrito 
                                     <span id="alerta-carrito">
@@ -77,5 +77,8 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
         <script src="{% static 'articulos/js/script.js' %}"></script>
+        {% if request.path == '/articulos/about/' %}
+        <script src="{% static 'articulos/js/fancybox_config.js' %}"></script>
+        {% endif %}
     </body>
 </html>
