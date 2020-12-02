@@ -41,15 +41,17 @@
                             </li>
                             
                         </ul>
+                        {% if user.is_authenticated %}
                         <div class="btn-group menu-desplegable">
                             <button type="button" class="btn btn-secondary btn-sm dropdown-toggle bg-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Adminnistrador
+                              {{ user.username }}
                             </button>
                             <div class="dropdown-menu dropdown-menu-left dropdown-menu-lg-right">
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Cerrar Sesion</a>
+                              <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesion</a>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </nav>
             </header>

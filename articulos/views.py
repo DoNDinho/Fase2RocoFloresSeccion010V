@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required 
 
 from django.conf import settings
 import os
@@ -120,7 +121,7 @@ def carrito(request):
     else:
         return render(request, 'articulos/carrito.html')
 
-
+@login_required
 def nuevoArticulo(request):
     data ={
         'form':ArticuloForm()  
@@ -135,6 +136,7 @@ def nuevoArticulo(request):
             return HttpResponseRedirect(reverse('articulo-register'))
     else:
         return render(request, 'articulos/registerArticulo.html',data)
+
 
 
 class ListarArticulosView(generic.ListView):
@@ -171,3 +173,7 @@ def eliminarArticulo(request, id):
     
     articulo.delete()
     return redirect(to="articulo-listar")
+
+
+def login(request):
+    return render(request, 'articulos/loginAdmin.html')

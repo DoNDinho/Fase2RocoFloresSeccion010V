@@ -1,0 +1,40 @@
+<!-- IMPORTANDO ARCHIVOS ESTATICOS -->
+{% load static %}
+<!-- EXPORTANDO TITULO DE PAGINA -->
+{% block title %}<title>Login Admin</title>{% endblock %}
+<!-- EXPORTANDO CONTENIDO HTML -->
+{% block content %} {%if form.errors %}
+<p>su cuenta y contraseña no se encuentran ,por favor intentelo otra vez</p>
+<p>{% endif %} {%if next %} {if user.is_authenticated %}</p>
+
+<p>tu cuenta no pudo acceder a esta pagina , por favor registrese para acceder</p>
+<p>{%else%}</p>
+
+<p>por favor registrese para ver esta pagina</p>
+<p>
+    {% endif %} {% endif %}
+    <!-- FORMULARIO LOGIN ADMIN -->
+</p>
+
+<div class="row justify-content-center">
+    <h2 class="col-12">Login Admin</h2>
+
+    <form id="formularioLoginAdmin" method="POST" class="col-xl-5 col-md-7 col-xs-12">
+        {% csrf_token %}
+        <!--<div class="form-group">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese su usuario" />
+            <small id="usernameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su password" />
+        </div>-->
+
+        <table>
+            {{form.as_table}}
+        </table>
+
+        <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+</div>
+
+{% endblock %}
