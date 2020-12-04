@@ -3,19 +3,23 @@
 <!-- EXPORTANDO TITULO DE PAGINA -->
 {% block title %}<title>Login Admin</title>{% endblock %}
 <!-- EXPORTANDO CONTENIDO HTML -->
-{% block content %} {%if form.errors %}
-<p>su cuenta y contraseña no se encuentran ,por favor intentelo otra vez</p>
-<p>{% endif %} {%if next %} {if user.is_authenticated %}</p>
+{% block content %} 
 
-<p>tu cuenta no pudo acceder a esta pagina , por favor registrese para acceder</p>
-<p>{%else%}</p>
-
-<p>por favor registrese para ver esta pagina</p>
-<p>
-    {% endif %} {% endif %}
-    <!-- FORMULARIO LOGIN ADMIN -->
-</p>
-
+    <!-- VALIDANDO ERRORES DEL FORMULARIO-->
+    {%if form.errors %}
+    <p>su cuenta y contraseña no se encuentran ,por favor intentelo otra vez</p>
+    {% endif %} 
+    <!------------------------------------->
+    
+    {%if next %} 
+        {if user.is_authenticated %}</p>
+        <p>tu cuenta no pudo acceder a esta pagina , por favor registrese para acceder</p>
+        {%else%}
+        <p>por favor registrese para ver esta pagina</p>
+        {% endif %} 
+   
+    
+<!-- FORMULARIO LOGIN ADMIN -->
 <div class="row justify-content-center">
     <h2 class="col-12">Login Admin</h2>
 

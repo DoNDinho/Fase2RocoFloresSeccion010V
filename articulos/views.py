@@ -121,7 +121,7 @@ def carrito(request):
     else:
         return render(request, 'articulos/carrito.html')
 
-@login_required
+
 def nuevoArticulo(request):
     data ={
         'form':ArticuloForm()  
