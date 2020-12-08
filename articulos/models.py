@@ -41,26 +41,7 @@ class Sexo(models.Model):
     def __str__(self):
         return self.sexo
 
-"""
-class Usuario(models.Model):
-    
-    nombreUsuario = models.CharField(max_length=100)
-    telefono = models.CharField(max_length=12)
-    email= models.EmailField(max_length= 30)
-    sexo = models.ForeignKey(Sexo, on_delete=models.CASCADE)
-    contraseña = models.CharField(max_length=15)
-    edad = models.IntegerField()
-    img = models.ImageField(upload_to='static/articulos/img/usuarios', null=True, blank=True)
-    
-    class Meta:
-        ordering=['nombreUsuario']
 
-    def __str__(self):
-        return self.nombreUsuario
-
-""""""""""""""""""""""""""
-""""""" MODELO USUARIO """
-""""""""""""""""""""""""""
 class UsuarioManager(BaseUserManager):
     def create_user(self, email, nombreUsuario, telefono, sexo, edad, password=None):
         if not email:

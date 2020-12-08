@@ -30,63 +30,6 @@ class ArticuloForm(ModelForm):
             )
         } 
 
-"""
-class UsuarioForm(ModelForm):
-    class Meta:
-        model= Usuario
-        fields = ['nombreUsuario','telefono','email','sexo','contraseña','edad', 'img']
-
-        widgets= {
-            'nombreUsuario': forms.TextInput(
-                attrs={
-                    'id': 'registroNombre',
-                    'class':'form-control',
-                    'placeholder': 'Ingrese su nombre'
-                }
-            ),
-            'email': forms.EmailInput(
-                attrs={
-                    'id': 'registroEmail',
-                    'class':'form-control',
-                    'placeholder': 'Ingrese su email'
-                }
-            ),
-            'sexo': forms.Select(
-                attrs={
-                    'class':'form-control'
-                }
-            ),
-            'contraseña': forms.PasswordInput(
-                attrs={
-                    'id': 'registroPassword',
-                    'class':'form-control',
-                    'placeholder': 'Ingrese su email'
-                }
-            ),
-            'telefono': forms.TextInput(
-                attrs={
-                    'id': 'registroTelefono',
-                    'class':'form-control',
-                    'placeholder': 'Ingrese número de telefono'
-                }
-            ),
-            'edad': forms.NumberInput(
-                attrs={
-                    'id': 'registroEdad',
-                    'class':'form-control',
-                    'placeholder': 'Ingrese su edad',
-                    'min': '24'
-                }
-            ),
-            'img': forms.FileInput(
-                attrs={
-                    'class': 'custom-file-input',
-                    'id': 'inputGroupFile01',
-                    'aria-describedby': 'inputGroupFileAddon01'
-                }
-            )
-        }
-"""
 
 class UsuarioForm(ModelForm):
     class Meta:
@@ -144,3 +87,10 @@ class UsuarioForm(ModelForm):
             )
         }
 
+    def save(self, commit = True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password'])
+
+        if commit:
+            user.save()
+        return user
