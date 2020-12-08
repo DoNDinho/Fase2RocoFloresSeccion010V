@@ -23,6 +23,7 @@ def about(request):
     return render(request, 'articulos/about.html')
 
 
+
 @csrf_exempt
 def register(request):
     data = {
@@ -38,7 +39,7 @@ def register(request):
             return HttpResponseRedirect(reverse('register'))
     else:
         return render(request, 'articulos/register.html', data)
- 
+
         
 @csrf_exempt
 def carrito(request):

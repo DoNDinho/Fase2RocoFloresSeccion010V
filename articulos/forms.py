@@ -30,6 +30,7 @@ class ArticuloForm(ModelForm):
             )
         } 
 
+"""
 class UsuarioForm(ModelForm):
     class Meta:
         model= Usuario
@@ -85,3 +86,61 @@ class UsuarioForm(ModelForm):
                 }
             )
         }
+"""
+
+class UsuarioForm(ModelForm):
+    class Meta:
+        model = Usuario
+        fields =  ['nombreUsuario','telefono','email','sexo','password','edad', 'img']
+
+        widgets = {
+            'email': forms.EmailInput(
+                attrs={
+                    'id': 'registroEmail',
+                    'class':'form-control',
+                    'placeholder': 'Ingrese su email'
+                }
+            ),
+            'nombreUsuario': forms.TextInput(
+                attrs={
+                    'id': 'registroNombre',
+                    'class':'form-control',
+                    'placeholder': 'Ingrese su nombre'
+                }
+            ),
+            'telefono': forms.TextInput(
+                attrs={
+                    'id': 'registroTelefono',
+                    'class':'form-control',
+                    'placeholder': 'Ingrese número de telefono'
+                }
+            ),
+            'sexo': forms.Select(
+                attrs={
+                    'class':'form-control'
+                }
+            ),
+            'edad': forms.NumberInput(
+                attrs={
+                    'id': 'registroEdad',
+                    'class':'form-control',
+                    'placeholder': 'Ingrese su edad',
+                    'min': '13'
+                }
+            ),
+            'password': forms.PasswordInput(
+                attrs={
+                    'id': 'registroPassword',
+                    'class':'form-control',
+                    'placeholder': 'Ingrese su contraseña'
+                }
+            ),
+            'img': forms.FileInput(
+                attrs={
+                    'class': 'custom-file-input',
+                    'id': 'inputGroupFile01',
+                    'aria-describedby': 'inputGroupFileAddon01'
+                }
+            )
+        }
+
