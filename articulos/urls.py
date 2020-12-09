@@ -10,5 +10,7 @@ urlpatterns = [
     path('articulo/register/',login_required(views.nuevoArticulo), name='articulo-register'),
     path('articulo/listar/',login_required(views.ListarArticulosView.as_view()), name='articulo-listar'),
     path('articulo/modificar/<id>/',login_required(views.modificarArticulo), name='articulo-modificar'),
-    path('articulo/eliminar/<id>/', login_required(views.eliminarArticulo), name='articulo-aliminar') 
+    path('articulo/eliminar/<id>/', login_required(views.eliminarArticulo), name='articulo-aliminar'),
+    path('articulo/register/admin/', login_required(views.RegistrarAdmin.as_view()), name='articulo-register-admin'),
+    path('articulo/listar/usuarios/', login_required(views.ListarUsuarios.as_view()), name='articulo-listar-usuarios')
 ]

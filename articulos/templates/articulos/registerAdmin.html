@@ -1,6 +1,6 @@
 <!-- HEREDA DE base_generic.html-->
-{% extends "articulos/base_generic.html" %}
-{% block title %}<title>Registro Usuario</title>{% endblock %}
+{% extends "articulos/base_articulos.html" %}
+{% block title %}<title>Registro Admin</title>{% endblock %}
 
 {% load static %} 
 <!-- CONTENIDO HTML-->
@@ -8,7 +8,7 @@
 <!-- FORMULARIO REGISTRO -->
 {% load crispy_forms_tags %}
 <div id="contenedorFormularioRegistro" class="row justify-content-center">
-    <h2 class="col-12">Formulario Registro</h2>
+    <h2 class="col-12">Registro Admin</h2>
 
     <form id="formularioRegistro" action="" method="POST" class="col-xl-5 col-md-7 col-xs-12" enctype="multipart/form-data">
         {% csrf_token %}

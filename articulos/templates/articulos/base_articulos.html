@@ -34,10 +34,16 @@
                                 <a class="nav-link" href="#"><i class="fas fa-home d-lg-none"></i> Inicio <span class="sr-only">(current)</span></a></span>
                             </li>
                             <li class="nav-item {% if request.path == '/articulos/articulo/register/' %} active {% endif %} ">
-                                <a class="nav-link" href="{% url 'articulo-register' %}"><i class="fas fa-users d-lg-none"></i> Registrar <span class="sr-only">(current)</span></a></span>
+                                <a class="nav-link" href="{% url 'articulo-register' %}"><i class="fas fa-users d-lg-none"></i> Registrar Articulo<span class="sr-only">(current)</span></a></span>
                             </li>
                             <li class="nav-item {% if request.path == '/articulos/articulo/listar/' %} active {% endif %}">
-                                <a class="nav-link" href="{% url 'articulo-listar' %}"><i class="fas fa-user-plus d-lg-none"></i> Listar <span class="sr-only">(current)</span></a></span>
+                                <a class="nav-link" href="{% url 'articulo-listar' %}"><i class="fas fa-user-plus d-lg-none"></i> Listar Articulo <span class="sr-only">(current)</span></a></span>
+                            </li>
+                            <li class="nav-item {% if request.path == '/articulos/articulo/register/admin/' %} active {% endif %}">
+                                <a class="nav-link" href="{% url 'articulo-register-admin' %}"><i class="fas fa-user-plus d-lg-none"></i> Registrar Admin<span class="sr-only">(current)</span></a></span>
+                            </li>
+                            <li class="nav-item {% if request.path == '/articulos/articulo/listar/usuarios/' %} active {% endif %}">
+                                <a class="nav-link" href="{% url 'articulo-listar-usuarios' %}"><i class="fas fa-user-plus d-lg-none"></i> Listar Usuarios<span class="sr-only">(current)</span></a></span>
                             </li>
                             
                         </ul>

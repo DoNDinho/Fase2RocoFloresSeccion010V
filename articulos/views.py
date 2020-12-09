@@ -9,7 +9,7 @@ from django.conf import settings
 import os
 import json
 
-from .models import Articulo
+from .models import Articulo, Usuario
 from .forms import ArticuloForm, UsuarioForm
 
 class IndexView(generic.ListView):
@@ -178,3 +178,45 @@ def eliminarArticulo(request, id):
 
 def login(request):
     return render(request, 'articulos/loginAdmin.html')
+
+
+class RegistrarAdmin(generic.CreateView):
+    model = Usuario
+    form_class = UsuarioForm
+    template_name = 'articulos/registerAdmin.html'
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            admin = Usuario(
+                nombreUsuario = form.cleaned_data.get('nombreUsuario'),
+                telefono = form.cleaned_data.get('telefono'),
+                email = form.cleaned_data.get('email'),
+                sexo = form.cleaned_data.get('sexo'),
+                edad = form.cleaned_data.get('edad')
+            )
+
+            admin.set_password(form.cleaned_data.get('password'))
+            admin.usuarioAdmin = True
+            admin.save()
+            return redirect('articulo-register-admin')
+        else:
+            return render(request, self.template_name, {'form': form})
+
+class ListarUsuarios(generic.ListView):
+    template_name = 'articulos/listarUsuarios.html'
+    context_object_name = 'listaUsuarios'
+
+    def get_queryset(self):
+        return Usuario.objects.all()
+
+def eliminarUsuario(request, email):
+    usuario = Usuario.objects.get(email=email)
+    
+    # Valida si articulo posee imagen
+    if usuario.img:
+        # Eliminar imagen del directorio
+        os.remove(str(settings.BASE_DIR) + usuario.img.url)
+    
+    usuario.delete()
+    return redirect(to="articulo-listar-usuarios")

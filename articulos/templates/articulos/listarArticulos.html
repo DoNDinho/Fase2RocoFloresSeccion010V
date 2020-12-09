@@ -1,8 +1,7 @@
-{% extends "articulos/base_articulos.html" %} 
-{% load static %}
+{% extends "articulos/base_articulos.html" %} {% load static %}
 
 <!-- MODIFICANDO TITULO DE LA PAGINA -->
-{% block title %}<title>Listar</title>{% endblock %} 
+{% block title %}<title>Listar</title>{% endblock %}
 
 <!-- CONTENIFO HTML -->
 {% block content %}
@@ -10,7 +9,7 @@
 <!--CARGANDO JAVASCRIPT CON CODIGO PATA CONFIRMAR ELIMINACION DE ARTICULO-->
 {% block javascript %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="{% static 'articulos/js/articulo_eliminar.js' %}"></script>
+<script src="{% static 'articulos/js/confirma_eliminacion.js' %}"></script>
 {% endblock %}
 
 <div>
@@ -35,8 +34,7 @@
                         <img class="articulos-listar-imagen" src="{{articulo.img.url}}" alt="" />
                         {% else %}
                         <img src="{% static 'articulos/img/articulos/imagen_no_disponible.png' %}" class="articulos-listar-imagen" alt="Imagen no disponible" />
-                        {% endif %}
-                        {{articulo.nombre}}
+                        {% endif %} {{articulo.nombre}}
                     </td>
                     <td><b>$ {{articulo.precio}}</b></td>
                     <td>{{articulo.stock}}</td>
@@ -48,7 +46,7 @@
                     </td>
                     <td>
                         <!-- BOTON ELIMINAR -->
-                        <a href="#" onclick="confirmarEliminacion( {{articulo.id}} )">
+                        <a href="#" onclick="confirmarEliminacionArticulo( {{articulo.id}} )">
                             <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                         </a>
                     </td>

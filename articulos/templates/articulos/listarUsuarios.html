@@ -1,0 +1,66 @@
+{% extends "articulos/base_articulos.html" %} {% load static %}
+
+<!-- MODIFICANDO TITULO DE LA PAGINA -->
+{% block title %}<title>Usuarios</title>{% endblock %}
+
+<!-- CONTENIFO HTML -->
+{% block content %}
+
+<!--CARGANDO JAVASCRIPT CON CODIGO PATA CONFIRMAR ELIMINACION DE ARTICULO-->
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{% static 'articulos/js/confirma_eliminacion.js' %}"></script>
+{% endblock %}
+
+<div>
+    <h2 class="col-12">Lista Usuarios</h2>
+    {% if listaUsuarios %}
+    <div class="table-responsive-lg">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Sexo</th>
+                    <th scope="col">Edad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in listaUsuarios %}
+                <tr>
+                    <td scope="row">
+                        {% if usuario.img %}
+                        <img class="articulos-listar-imagen" src="{{usuario.img.url}}" alt="" />
+                        {% else %}
+                        <img src="{% static 'articulos/img/usuarios/perfil.webp' %}" class="articulos-listar-imagen" alt="Imagen no disponible" />
+                        {% endif %}
+                    </td>
+
+                    <td><b>{{usuario.nombreUsuario}}</b></td>
+
+                    <td><b>{{usuario.email}}</b></td>
+
+                    <td>{{usuario.telefono}}</td>
+
+                    <td>{{usuario.sexo}}</td>
+
+                    <td>{{usuario.edad}}</td>
+
+                    <td>
+                        <!-- BOTON ELIMINAR -->
+                        <a href="#" onclick="confirmarEliminacionUsuario( {{usuario.email}} )">
+                            <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No existen usuarios</p>
+    {% endif %}
+</div>
+{% endblock %}
