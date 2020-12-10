@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 import os
 import json
+import requests
 
 from .models import Articulo, Usuario
 from .forms import ArticuloForm, UsuarioForm
@@ -117,7 +118,34 @@ def carrito(request):
                 articulo.stock = articulo.stock - cantidad
                 articulo.save()
 
-            return JsonResponse({})
+            # Valida si el usuario está autenticado para enviar correo
+            if request.user.is_authenticated:
+                print(request.user.email)
+                headers = {
+                    'transaction_id': '1234556',
+                    'timestamp': '2020-12-10T12:00:00',
+                    'Content-Type': 'application/json',
+                    'channel_id': '11',
+                    'accept':'application/json'
+                }
+
+                body = {
+                    "data": {
+                        "token": {
+                            "payload": {
+                                "email": "test@gmail.com",
+                                "password": "test123",
+                                "nickname": "test user",
+                                "age": 24,
+                                "phone": "966206918"
+                            }
+                        }
+                    }
+                }
+
+                r = requests.post('https://generateencrypttoken.azurewebsites.net/token/encrypt', headers=headers, json=body)
+                print(r.status_code)
+                return JsonResponse({})
    
     else:
         return render(request, 'articulos/carrito.html')
