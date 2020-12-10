@@ -129,7 +129,7 @@ def carrito(request):
                     'accept':'application/json'
                 }
 
-                body = {
+                payload = {
                     "data": {
                         "token": {
                             "payload": {
@@ -137,15 +137,18 @@ def carrito(request):
                                 "password": "test123",
                                 "nickname": "test user",
                                 "age": 24,
-                                "phone": "966206918"
+                                "phone": "966206918",
+                                'articulos': body
                             }
                         }
                     }
                 }
 
-                r = requests.post('https://generateencrypttoken.azurewebsites.net/token/encrypt', headers=headers, json=body)
-                print(r.status_code)
-                print(r.text)
+                print(payload)
+
+                #r = requests.post('https://generateencrypttoken.azurewebsites.net/token/encrypt', headers=headers, json=payload)
+                #print(r.status_code)
+                #print(r.text)
                 return JsonResponse({})
    
     else:
