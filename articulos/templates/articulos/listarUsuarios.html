@@ -25,6 +25,7 @@
                     <th scope="col">Telefono</th>
                     <th scope="col">Sexo</th>
                     <th scope="col">Edad</th>
+                    <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +51,7 @@
 
                     <td>
                         <!-- BOTON ELIMINAR -->
-                        <a href="#" onclick="confirmarEliminacionUsuario( {{usuario.email}} )">
+                        <a href="#" onclick="confirmarEliminacionUsuario( '{{usuario.email}}' )">
                             <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                         </a>
                     </td>

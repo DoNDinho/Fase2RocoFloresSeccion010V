@@ -14,5 +14,6 @@ urlpatterns = [
     path('articulo/eliminar/<id>/', staff_member_required(views.eliminarArticulo), name='articulo-aliminar'),
     path('articulo/register/admin/', staff_member_required(views.RegistrarAdmin.as_view()), name='articulo-register-admin'),
     path('articulo/listar/usuarios/', staff_member_required(views.ListarUsuarios.as_view()), name='articulo-listar-usuarios'),
+    path('articulo/eliminar/usuario/<str:email>/', staff_member_required(views.eliminarUsuario), name='articulo-eliminar-usuario')
     
 ]

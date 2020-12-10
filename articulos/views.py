@@ -145,6 +145,7 @@ def carrito(request):
 
                 r = requests.post('https://generateencrypttoken.azurewebsites.net/token/encrypt', headers=headers, json=body)
                 print(r.status_code)
+                print(r.text)
                 return JsonResponse({})
    
     else:

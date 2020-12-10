@@ -1,4 +1,5 @@
 function confirmarEliminacionArticulo(id) {
+    console.log('ARTICULO');
     Swal.fire({
         title: '¿Está seguro?',
         text: 'No podra revertir esto',
