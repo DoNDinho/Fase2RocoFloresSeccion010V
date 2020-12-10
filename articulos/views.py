@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 import os
 import json
+import random
+import datetime
+import threading
 import requests
 
 from .models import Articulo, Usuario
@@ -110,6 +113,8 @@ def carrito(request):
             })
         else:
             # Recorre lista con articulos para modificar stock
+            montoTotal = 0
+
             for articulos in body:
                 id = articulos['id']
                 cantidad = int(articulos['cantidad'])
@@ -117,40 +122,73 @@ def carrito(request):
                 articulo = Articulo.objects.get(id=id)
                 articulo.stock = articulo.stock - cantidad
                 articulo.save()
+                # Sumando monto total para envio de correo
+                montoTotal = montoTotal + (cantidad * int(articulos['precio']))
 
             # Valida si el usuario está autenticado para enviar correo
             if request.user.is_authenticated:
-                print(request.user.email)
+                urlSendMail = 'https://playstore-sendmail.herokuapp.com/send/mail'
+                date = datetime.datetime.today()
+                # Datos requeridos para el header
+                transactionId = random.randint(1000000, 9999999)
+                timestamp = '{:%Y-%m-%dT%H:%M:%S}'.format(date)
+                # Datos requeridos para el body
+                email = request.user.email
+                nombre = request.user.nombreUsuario
+                fecha = '{:%d-%m-%Y}'.format(date)
+                hora = '{:%H:%M}'.format(date)
+
                 headers = {
-                    'transaction_id': '1234556',
-                    'timestamp': '2020-12-10T12:00:00',
+                    'transaction_id': str(transactionId),
+                    'timestamp': timestamp,
                     'Content-Type': 'application/json',
-                    'channel_id': '11',
+                    'channel_id': '08',
                     'accept':'application/json'
                 }
 
                 payload = {
-                    "data": {
-                        "token": {
-                            "payload": {
-                                "email": "test@gmail.com",
-                                "password": "test123",
-                                "nickname": "test user",
-                                "age": 24,
-                                "phone": "966206918",
-                                'articulos': body
-                            }
+                    "data":{
+                        "id_template": "playStorePago",
+                        "email_info":{
+                            "from_description": "PlayStore",
+                            "to": email,
+                            "subject": "Comprobante Pago"
+                        },
+                        "list_params":{
+                            "params":[
+                                {
+                                    "name": "nombreUsuario",
+                                    "value": nombre
+                                },
+                                {
+                                    "name": "montoTotal",
+                                    "value": str(montoTotal)
+                                },
+                                {
+                                    "name": "diaMesAnho",
+                                    "value": fecha
+                                },
+                                {
+                                    "name": "horaMinuto",
+                                    "value": hora
+                                }
+                            ]
+                        },
+                        "list_items":{
+                            "items": body
                         }
                     }
                 }
 
-                print(payload)
+                def enviarMail(url, headers, body):
+                    requests.post(urlSendMail, headers=headers, json=payload)
+                    return
 
-                #r = requests.post('https://generateencrypttoken.azurewebsites.net/token/encrypt', headers=headers, json=payload)
-                #print(r.status_code)
-                #print(r.text)
-                return JsonResponse({})
-   
+                # Genera un hilo para ejecutar envio de correo de manera asincrona
+                t1 = threading.Thread(name="hilo_correo", target=enviarMail, args=(urlSendMail, headers, body))
+                t1.start()
+            
+            return JsonResponse({})
     else:
         return render(request, 'articulos/carrito.html')
 
