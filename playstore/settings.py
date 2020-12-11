@@ -26,7 +26,7 @@ SECRET_KEY = '7!lv!m-dm0@@9lmonb7lcs9$#4$+atuezh5btx8sklz^ffe$hd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['dondinho.pythonanywhere.com']
 
 LOGIN_REDIRECT_URL = '/articulos/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
